@@ -1,36 +1,70 @@
 "use strict";
 
+let posX;
+let posY;
+let r;
+let g;
+let b;
+let size;
+
+
+
 function setup() {
     createCanvas(640, 640);
-
+    drawEllipse();
+    drawEllipse();
+    drawEllipse();
 
 }
 
-function draw() {
+function drawEllipse() {
 
     background(1);
 
 
     push();
-    fill(59, 28, 50);
+    r = 59;
+    g = 28;
+    b = 50
+    fill(r, g, b);
+
     strokeWeight(0);
-    ellipse(50,50, 50, 50);    
+
+    posX = 50;
+    posY = 50;
+    size = 50;
+    ellipse(posX, posY, size);    
+
     pop();
 
 
 
 
     push();
-    fill(106, 30, 85);
+    r = 106;
+    g = 30;
+    b = 85
+    fill(r, g, b);
     strokeWeight(0);
-    ellipse( 125, 115, 75, 75);    
+
+    posX = 125;
+    posY = 115;
+    size = 75;
+    ellipse( posX, posY, size);    
     pop();
 
 
     push();
-    fill(166, 77, 121);
+    r = 166;
+    g = 77;
+    b = 121
+    fill(r, g, b);
     strokeWeight(0);
-    ellipse( 225, 205, 100, 100);    
+
+    posX = 225;
+    posY = 205;
+    size = 100;
+    ellipse( posX, posY, size);  
     pop();
 
 }
