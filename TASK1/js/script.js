@@ -24,7 +24,7 @@ function draw() {
     b = 50
     fill(r, g, b);
 
-    strokeWeight(0);
+    noStroke();
 
     posX = 50;
     posY = 50;
@@ -41,7 +41,8 @@ function draw() {
     g = 30;
     b = 85
     fill(r, g, b);
-    strokeWeight(0);
+
+    noStroke();
 
     posX = 125;
     posY = 115;
@@ -55,7 +56,8 @@ function draw() {
     g = 77;
     b = 121
     fill(r, g, b);
-    strokeWeight(0);
+
+    noStroke();
 
     posX = 225;
     posY = 205;
@@ -64,3 +66,4 @@ function draw() {
     pop();
 
 }
+
