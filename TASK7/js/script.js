@@ -1,81 +1,53 @@
 "use strict";
-
-let counter = 0;
-const maxCounter = 10;
-const square = {
-  x: 50,
-  y: 20,
-  w: 50,
-  h: 50,
-  color: 'orange',
-};
-const redSquare = {
-  x: 150,
-  y: 20,
-  w: 50,
-  h: 50,
-  color: 'red',
-};
-let radius = 50;
-let ellipseAlpha = 50;
+let shapeType = 'circle';  // Starts with 'circle'
+let circleSize = 50;  // Circle size (changeable to a multiple of 5)
+let cols, rows;
+let colorBg;
+let spacing = 10;  // Space between shapes
 
 function setup() {
-  createCanvas(640, 640);
+  createCanvas(640, 640);  // Set canvas size to 640x640
+  cols = floor(width / (circleSize + spacing));  // Adjust columns for spacing
+  rows = floor(height / (circleSize + spacing));  // Adjust rows for spacing
+  
+  // Set a random color for all shapes
+  colorBg = color(random(255), random(255), random(255));
+  noStroke();
 }
 
 function draw() {
   background(1);
 
+  // Loop through rows and columns to draw shapes
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      // Calculate position for each shape with spacing
+      let x = i * (circleSize + spacing) + circleSize / 2;
+      let y = j * (circleSize + spacing) + circleSize / 2;
 
-    displaySquare(square);
-  displaySquare(redSquare);
-
-
-    if (checkCollisionWithSquare(square)) {
-    square.color = color(255, 165, 0, 150); 
-  } else {
-    square.color = 'orange';
-  }
-
-  if (checkCollisionWithSquare(redSquare)) {
-    redSquare.color = color(255, 0, 0, 150); 
-  } else {
-    redSquare.color = 'red';
-  }
-
-
-    if (counter >= 1 && counter <= maxCounter) {
-    let i = 0;
-    let currentRadius = radius;
-    let currentAlpha = ellipseAlpha;
-
-    while (i < counter) {
-      drawCircle(width / 2, height / 2, currentRadius, currentAlpha);
-      currentRadius += 50;
-      currentAlpha += 5;
-      i++;
+      // Change drawing based on the shape type
+      fill(colorBg);
+      if (shapeType === 'circle') {
+        ellipse(x, y, circleSize, circleSize);  // Draw circle
+      } else {
+        rect(x - circleSize / 2, y - circleSize / 2, circleSize, circleSize);  // Draw square
+      }
     }
   }
 }
 
-function displaySquare(sq) {
-  fill(sq.color);
-  rect(sq.x, sq.y, sq.w, sq.h);
-}
-
-function checkCollisionWithSquare(sq) {
-  return mouseX > sq.x && mouseX < sq.x + sq.w && mouseY > sq.y && mouseY < sq.y + sq.h;
-}
-
-function mousePressed() {
-  if (checkCollisionWithSquare(square) && counter < maxCounter) {
-    counter++;
-  } else if (checkCollisionWithSquare(redSquare) && counter > 0) {
-    counter--;
+// Change the color of all shapes when the space bar is pressed
+function keyPressed() {
+  if (key === ' ') {
+    colorBg = color(random(255), random(255), random(255));
   }
 }
 
-function drawCircle(x, y, radius, alpha) {
-  fill(255, alpha);
-  ellipse(x, y, radius);
+// Toggle between circles and squares on mouse click
+function mousePressed() {
+  if (shapeType === 'circle') {
+    shapeType = 'square';  // Change to square
+  } else {
+    shapeType = 'circle';  // Change back to circle
+  }
 }
