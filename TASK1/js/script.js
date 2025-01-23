@@ -1,6 +1,6 @@
 "use strict";
 
-// Variables
+// Variables 
 let posX;
 let posY;
 let r;
@@ -30,7 +30,7 @@ function draw() {
 
     noStroke();
     
-    // Preseting the positions of the ellipse
+    // Preseting the positions of the ellipse and size
     posX = 50;
     posY = 50;
     size = 50;
@@ -49,7 +49,7 @@ function draw() {
 
     noStroke();
 
-    // Preseting the positions of the ellipse
+    // Preseting the positions of the ellipse and size
     posX = 125;
     posY = 115;
     size = 75;
@@ -66,7 +66,7 @@ function draw() {
     noStroke();
 
     
-    // Preseting the positions of the ellipse
+    // Preseting the positions of the ellipse and size
     posX = 225;
     posY = 205;
     size = 100;
