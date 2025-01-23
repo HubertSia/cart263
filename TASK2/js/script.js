@@ -1,71 +1,29 @@
 "use strict";
 
-let posX;
-let posY;
-let r;
-let g;
-let b;
-let size;
-
 
 
 function setup() {
+    // Set the canvas to 640x640
     createCanvas(640, 640);
-    drawEllipse();
-    drawEllipse();
-    drawEllipse();
 
-}
-
-function drawEllipse() {
-
+    // Black background
     background(1);
 
-
-    push();
-    r = 59;
-    g = 28;
-    b = 50
-    fill(r, g, b);
-
-    strokeWeight(0);
-
-    posX = 50;
-    posY = 50;
-    size = 50;
-    ellipse(posX, posY, size);    
-
-    pop();
-
-
-
-
-    push();
-    r = 106;
-    g = 30;
-    b = 85
-    fill(r, g, b);
-    strokeWeight(0);
-
-    posX = 125;
-    posY = 115;
-    size = 75;
-    ellipse( posX, posY, size);    
-    pop();
-
-
-    push();
-    r = 166;
-    g = 77;
-    b = 121
-    fill(r, g, b);
-    strokeWeight(0);
-
-    posX = 225;
-    posY = 205;
-    size = 100;
-    ellipse( posX, posY, size);  
-    pop();
-
+    // Draw three ellipses using the custom drawEllipse function
+    drawEllipse(50, 50, 50, 50, 59, 28, 50);
+    drawEllipse(125, 115, 75, 75, 106, 30, 85);
+    drawEllipse(225, 205, 100, 100, 166, 77, 121);
 }
 
+// Custom function to draw ellipses
+function drawEllipse(x, y, w, h, r, g, b) {
+    push();
+    
+    // Color of the ellipse
+    fill(r, g, b);
+    noStroke();
+    
+    // Size one position of the ellipse
+    ellipse(x, y, w, h);
+    pop();
+}
