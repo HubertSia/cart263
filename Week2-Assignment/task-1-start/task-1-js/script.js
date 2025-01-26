@@ -4,35 +4,57 @@ window.onload = setup;
 function setup(){
 console.log("we are a go!")
 /*** ALL ANWSERS TO BE ADDED IN THE ALLOCATED SPACE */
-/*** START PART ONE ACCESS */ 
+/*** START PART ONE ACCESS */
 /* 1: all paragraph elements */
+
 /***CODE */
+console.log(document.querySelectorAll("p"));
+
 /***OUTPUT: 
- * 
+ * Activate console log to select all the following selectors
  */
+
 
 
 /*************************************** */
 /* 2: only the first paragraph element */
-/***CODE */
-/***OUTPUT: 
- * 
- */
 
+/***CODE */
+console.log(document.querySelector("p"));    
+
+/***OUTPUT: 
+ * Activate console log of the following first selector detected
+ */
+    
 
 /*************************************** */
 /* 3: all elements with the class inner-container */
+
 /***CODE */
+console.log(document.querySelectorAll(".inner-container"));
+
+    
 /***OUTPUT: 
- * 
+ * Activate console log to select all the following selectors class
  */
 
 
 /*************************************** */
 /* 4: the last image element inside the element that has the class img-container */
+
 /***CODE */
+const imgContainers = document.querySelectorAll('.img-container');
+
+const lastImgContainer = imgContainers[imgContainers.length - 1];
+
+const lastImage = lastImgContainer.querySelector('img');
+
+console.log(lastImage); 
+    
 /***OUTPUT: 
- * 
+ * Create a variable that we contain all of .img-container
+ * Create another variable that will contain the last element of the 
+ * Activate console log that well call the last element
  */
 
 
@@ -40,16 +62,40 @@ console.log("we are a go!")
 /* 5A: all h2 elements */
 /* 5B: length of the list in 5A */
 /* 5C: the text content of the first element in the list from 5A */
+
 /***CODE */
+
+    //5A
+    const element5a = (document.querySelectorAll("h2"));
+    console.log(element5a);
+    //5B
+    console.log(element5a.length);
+
+    //5C
+    console.log(element5a[0].textContent)
+    
 /***OUTPUT: 
+ * 
+ * For 5A a variable has been created to select all elements that has a h2
+ * Follow by that, use console log to find all the h2
+ * 
+ * In 5B, by using the same variable from 5A. 
+ * We're using this variable to get its length
+ * 
+ * In 5c, once again, by using the same variable from 5A. 
+ * Check the list from the variable and select the first element from textContent
  * 
  */
 
 
 /*************************************** */
 /* 6: the element with id name parent */
-/***CODE */
+    /***CODE */
+    console.log(document.getElementById('parent'));
+    
 /***OUTPUT: 
+ * 
+ * Activate console log the get the "parent" ID
  * 
  */
 
