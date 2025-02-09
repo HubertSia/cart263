@@ -89,47 +89,68 @@ function setup_F() {
    * Do not change any code above or the HTML markup.
    * **/
 
-  function aniA(parentCanvas) {
+ function aniA(parentCanvas) {
     console.log("in A");
 
+    // Create a button to reset the animation
     let button = document.createElement("div");
     button.classList.add("TEAM_F_box");
     button.textContent = "GO";
     parentCanvas.appendChild(button);
 
-    let rectPs = [];
-    let aniSpeed = 1;
-    let changingNum = 1;
-    let aniRef;
-    let isAnimating = false;
+   // Array to store the animated elements
+   let rectPs = [];
+   
+   // Speed of animation
+   let aniSpeed = 1; 
+   
+   // Number of elements affected per frame
+    let changingNum = 1; 
+   
+   // Reference for animation frame
+   let aniRef;
+   
+   // Animation state tracker
+    let isAnimating = false; 
+    
+   // Initialize the grid of elements
+    setupAnimation(); 
 
-    setupAnimation();
-
-    function setupAnimation() {
-        let offset = 40;
+   function setupAnimation() {
+      
+     // Offset for positioning elements
+        let offset = 40; 
         for (let i = 0; i < 13; i++) {
             for (let j = 0; j < 13; j++) {
                 let rectP = document.createElement("p");
                 rectP.classList.add("TEAM_F_rect");
                 rectP.style.width = `20px`;
                 rectP.style.height = `20px`;
+                 
+              // Alternating text
                 rectP.textContent = (j % 2 === 0) ? "E" : "O";
                 rectP.style.left = offset + i * 25 + "px";
                 rectP.style.top = offset + j * 25 + "px";
                 rectP.style.fontSize = `13px`;
                 parentCanvas.appendChild(rectP);
-                rectPs.push(rectP);
+              
+              // Store element reference
+                rectPs.push(rectP); 
             }
         }
     }
 
-    // Start or stop animation on mouse click anywhere in parentCanvas
+    // Toggle animation on mouse click anywhere in parentCanvas
     parentCanvas.addEventListener("mousedown", function () {
-        if (isAnimating) {
-            cancelAnimationFrame(aniRef);
+      if (isAnimating) {
+          
+            // Stop animation
+            cancelAnimationFrame(aniRef); 
             isAnimating = false;
             console.log("Animation Stopped");
         } else {
+          
+             // Start animation
             aniRef = window.requestAnimationFrame(animate);
             isAnimating = true;
             console.log("Animation Started");
@@ -140,7 +161,7 @@ function setup_F() {
     button.addEventListener("click", function () {
         console.log("Reset Animation");
         
-        // Reset all elements to initial size
+        // Reset all elements to initial size and font size
         for (let i = 0; i < rectPs.length; i++) {
             rectPs[i].style.width = `20px`;
             rectPs[i].style.height = `20px`;
@@ -155,6 +176,7 @@ function setup_F() {
     });
 
     function animate() {
+        // Reverse direction when size limit is reached
         if (
             parseInt(rectPs[0].style.width) > 28 ||
             parseInt(rectPs[0].style.width) < 1
@@ -162,6 +184,7 @@ function setup_F() {
             aniSpeed *= -1;
         }
 
+        // Adjust size and font size of elements
         for (let i = 0; i < rectPs.length; i += changingNum) {
             rectPs[i].style.width =
                 parseInt(rectPs[i].style.width) + aniSpeed + "px";
@@ -171,9 +194,11 @@ function setup_F() {
                 parseInt(rectPs[i].style.fontSize) + aniSpeed + "px";
         }
 
-        aniRef = window.requestAnimationFrame(animate);
+        // Continue animation loop
+        aniRef = window.requestAnimationFrame(animate); 
     }
 }
+
 
   /**************** ANI B ************************************ */
   /** PUT ALL YOUR CODE FOR ANIMATION B INSIDE  HERE */
@@ -193,180 +218,169 @@ function setup_F() {
    * remember you can define other functions inside....
    * Do not change any code above or the HTML markup.
    * **/
-  function aniB(parentCanvas) {
+function aniB(parentCanvas) {
     console.log("Animation started");
     
-    solutionNadia();
-    solutionHubert();
+    // Call individual animation setups
+    solutionNadia(); 
+    solutionHubert(); 
     
     function solutionNadia() {
-        
-  
-  //get the rendered bounding Box of parent and use the width and height
-    let boundingBoxParent = parentCanvas.getBoundingClientRect();
-    console.log(boundingBoxParent);
+        // Get the bounding box dimensions of the parent canvas
+        let boundingBoxParent = parentCanvas.getBoundingClientRect();
+        console.log(boundingBoxParent);
 
-    let numCircles = 10;
-    let circles = [];
+      // Number of bouncing circles
+      let numCircles = 10;
+      
+      // Array to store circle objects
+        let circles = []; 
 
-    for (let i = 0; i < numCircles; i++) {
-      let circle = document.createElement("div");
-      circle.classList.add("TEAM_F_circle");
-      parentCanvas.appendChild(circle);
-      circle.style.position = "absolute";
-      circle.style.width = "50px";
-      circle.style.height = "50px";
-      circle.style.borderRadius = "50%";
-      circle.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255
-        }, ${Math.random() * 255})`;
-
-      let x = Math.random() * boundingBoxParent.width;
-      let y = Math.random() * boundingBoxParent.height;
-      let xSpeed = (Math.random() - 0.5) * 4;
-      let ySpeed = (Math.random() - 0.5) * 4;
-
-      circle.style.left = `${x}px`;
-      circle.style.top = `${y}px`;
-
-      circles.push({ circle, x, y, xSpeed, ySpeed });
-    }
-
-    window.setInterval(() => {
-      for (let i = 0; i < numCircles; i++) {
-        let { circle, x, y, xSpeed, ySpeed } = circles[i];
-
-        x += xSpeed;
-        y += ySpeed;
-
-        if (x + 50 > boundingBoxParent.width || x < 0) {
-          xSpeed = -xSpeed;
-        }
-        if (y + 50 > boundingBoxParent.height || y < 0) {
-          ySpeed = -ySpeed;
-        }
-
-        circle.style.left = `${x}px`;
-        circle.style.top = `${y}px`;
-
-        circles[i] = { circle, x, y, xSpeed, ySpeed };
-      }
-    }, 20);
-
-
-
-    //make a grid of cells
-    for (let i = 20; i < boundingBoxParent.width; i += 30) {
-      for (let j = 20; j < boundingBoxParent.height; j += 80) {
-        //create a div and place in the grid
-        let rect = document.createElement("div");
-        rect.classList.add("TEAM_H_h_cell");
-        parentCanvas.appendChild(rect);
-        rect.style.left = `${j + 10}px`;
-        rect.style.top = `${i}px`;
-        rect.textContent = "test";
-        rect.style.width = "40px";
-        rect.style.height = "20px";
-        rect.style.opacity = 1;
-
-        if (j % 3 === 1) {
-          rect.style.background = "orange";
-        } else if (j % 3 === 2) {
-          rect.style.background = "red";
-        }
-        rect.setAttribute("isactive", "false");
-
-        //add an event listener to each div...
-        rect.addEventListener("click", clickEventHandlerOnRec);
-      }
-    }
-
-    /****** callback for click on a rect in the grid **********/
-    function clickEventHandlerOnRec() {
-      //this is the element that was clicked on
-      //ensure that this only works for the FIRST MOUSE CLICK
-      if (this.getAttribute("isactive") === "false") {
-        // Change circle colors
+        // Create and position bouncing circles randomly
         for (let i = 0; i < numCircles; i++) {
-          circles[i].circle.style.backgroundColor = `rgb(${Math.random() * 255
-            }, ${Math.random() * 255}, ${Math.random() * 255})`;
+            let circle = document.createElement("div");
+            circle.classList.add("TEAM_F_circle");
+            parentCanvas.appendChild(circle);
+            circle.style.position = "absolute";
+            circle.style.width = "50px";
+            circle.style.height = "50px";
+            circle.style.borderRadius = "50%";
+            circle.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+
+            let x = Math.random() * boundingBoxParent.width;
+            let y = Math.random() * boundingBoxParent.height;
+            let xSpeed = (Math.random() - 0.5) * 4;
+            let ySpeed = (Math.random() - 0.5) * 4;
+
+            circle.style.left = `${x}px`;
+            circle.style.top = `${y}px`;
+
+            circles.push({ circle, x, y, xSpeed, ySpeed });
         }
 
-        //add ONE set interval call for each rect when it is clicked
-        //the callback will be opacityChange
-        let intervalRef = window.setInterval(opacityChange, 50); //for fade out
-        let upInterval = null;
-        this.setAttribute("isactive", "true");
-        //keep track of this... why?
-        let self = this;
+        // Animate circles so they bounce within the parent canvas
+        window.setInterval(() => {
+            for (let i = 0; i < numCircles; i++) {
+                let { circle, x, y, xSpeed, ySpeed } = circles[i];
 
-        //callback function triggered by the setInterval
-        function opacityChange() {
-          console.log("go");
-          self.style.opacity = parseFloat(self.style.opacity) - 0.05;
+                x += xSpeed;
+                y += ySpeed;
 
-          //will cancel the setInterval when complete...
-          if (parseFloat(self.style.opacity) <= 0) {
-            clearInterval(intervalRef);
-            self.remove();
-          }
-        }
-      }
-    }
-  
-  
-    }
-    
-    function solutionHubert() {
-    let boundingBoxParent = parentCanvas.getBoundingClientRect();
-    console.log(boundingBoxParent);
-
-    // Create a grid of animated divs
-    for (let i = 25; i < boundingBoxParent.width; i += 60) {
-        for (let j = 25; j < boundingBoxParent.height; j += 60) {
-            let rect = document.createElement("div");
-            rect.classList.add("animated-cell");
-            parentCanvas.appendChild(rect);
-
-            rect.style.position = "absolute";
-            rect.style.left = `${i}px`;
-            rect.style.top = `${j}px`;
-            rect.style.width = "30px";
-            rect.style.height = "30px";
-            rect.style.background = getRandomColor();
-            rect.style.borderRadius = "50%"; // Make it a circle
-            rect.style.opacity = 1;
-            rect.setAttribute("isactive", "false");
-
-            // Start the fade & scale animation
-            let scale = 1;
-            let fadeDirection = -0.05;
-             setInterval(() => {
-                let opacity = parseFloat(rect.style.opacity);
-                opacity += fadeDirection;
-                scale += fadeDirection * 0.5;
-
-                if (opacity <= 0 || opacity >= 1) {
-                    fadeDirection *= -1; // Reverse fade direction
+                // Reverse direction when hitting canvas edges
+                if (x + 50 > boundingBoxParent.width || x < 0) {
+                    xSpeed = -xSpeed;
+                }
+                if (y + 50 > boundingBoxParent.height || y < 0) {
+                    ySpeed = -ySpeed;
                 }
 
-                rect.style.opacity = opacity;
-                rect.style.transform = `scale(${scale})`;
-            }, 50);
+                circle.style.left = `${x}px`;
+                circle.style.top = `${y}px`;
 
-            // Click event: Change color
-            rect.addEventListener("click", () => {
-                rect.style.background = getRandomColor();
-            });
+                circles[i] = { circle, x, y, xSpeed, ySpeed };
+            }
+        }, 20);
+
+        // Create a grid of cells inside the canvas
+        for (let i = 20; i < boundingBoxParent.width; i += 30) {
+            for (let j = 20; j < boundingBoxParent.height; j += 80) {
+                let rect = document.createElement("div");
+                rect.classList.add("TEAM_H_h_cell");
+                parentCanvas.appendChild(rect);
+                rect.style.left = `${j + 10}px`;
+                rect.style.top = `${i}px`;
+                rect.textContent = "test";
+                rect.style.width = "40px";
+                rect.style.height = "20px";
+                rect.style.opacity = 1;
+
+                // Assign alternating colors
+                if (j % 3 === 1) {
+                    rect.style.background = "orange";
+                } else if (j % 3 === 2) {
+                    rect.style.background = "red";
+                }
+                rect.setAttribute("isactive", "false");
+
+                // Attach click event listener to each cell
+                rect.addEventListener("click", clickEventHandlerOnRec);
+            }
+        }
+
+        // Click event handler for grid cells
+        function clickEventHandlerOnRec() {
+            if (this.getAttribute("isactive") === "false") {
+                // Change all circle colors on click
+                for (let i = 0; i < numCircles; i++) {
+                    circles[i].circle.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+                }
+
+                let intervalRef = window.setInterval(opacityChange, 50); // Start fade-out effect
+                let self = this;
+                this.setAttribute("isactive", "true");
+
+                function opacityChange() {
+                    self.style.opacity = parseFloat(self.style.opacity) - 0.05;
+
+                  // Remove element after fade-out
+                    if (parseFloat(self.style.opacity) <= 0) {
+                        clearInterval(intervalRef);
+                        self.remove(); 
+                    }
+                }
+            }
         }
     }
-        // Function to get a random color
-    function getRandomColor() {
-    return `hsl(${Math.random() * 360}, 100%, 50%)`;
 
-}
+    function solutionHubert() {
+        let boundingBoxParent = parentCanvas.getBoundingClientRect();
+        console.log(boundingBoxParent);
+
+        // Create a grid of animated divs
+        for (let i = 25; i < boundingBoxParent.width; i += 60) {
+            for (let j = 25; j < boundingBoxParent.height; j += 60) {
+                let rect = document.createElement("div");
+                rect.classList.add("animated-cell");
+                parentCanvas.appendChild(rect);
+
+                rect.style.position = "absolute";
+                rect.style.left = `${i}px`;
+                rect.style.top = `${j}px`;
+                rect.style.width = "30px";
+                rect.style.height = "30px";
+                rect.style.background = getRandomColor();
+                rect.style.borderRadius = "50%";
+                rect.style.opacity = 1;
+                rect.setAttribute("isactive", "false");
+
+                // Start fade & scale animation
+                let scale = 1;
+                let fadeDirection = -0.05;
+                setInterval(() => {
+                    let opacity = parseFloat(rect.style.opacity);
+                    opacity += fadeDirection;
+                    scale += fadeDirection * 0.5;
+
+                    if (opacity <= 0 || opacity >= 1) {
+                        fadeDirection *= -1; // Reverse fade direction
+                    }
+
+                    rect.style.opacity = opacity;
+                    rect.style.transform = `scale(${scale})`;
+                }, 50);
+
+                // Change color on click
+                rect.addEventListener("click", () => {
+                    rect.style.background = getRandomColor();
+                });
+            }
+        }
     }
-    
 
+    // Generate a random color in HSL format
+    function getRandomColor() {
+        return `hsl(${Math.random() * 360}, 100%, 50%)`;
+    }
 }
 
 
